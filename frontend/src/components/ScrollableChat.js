@@ -1,4 +1,4 @@
-import { Avatar } from "@chakra-ui/avatar";
+ import { Avatar } from "@chakra-ui/avatar";
 import { Tooltip } from "@chakra-ui/tooltip";
 import { Icon } from "@chakra-ui/icons";
 import { FaBan } from "react-icons/fa";
@@ -46,6 +46,7 @@ const ScrollableChat = ({ messages }) => {
                 flexDirection: "column",
                 alignItems: m.sender._id === user._id ? "flex-end" : "flex-start",
                 maxWidth: "75%",
+                position: "relative",
               }}
             >
               <span
@@ -56,7 +57,7 @@ const ScrollableChat = ({ messages }) => {
                     ? "#BEE3F8"
                     : "#B9F5D0",
                   borderRadius: "10px",
-                  padding: "10px 15px",
+                  padding: "5px 15px 16px 15px ",
                   color: m.content === "This message was deleted." ? "#a0a0a0" : "black",
                   fontStyle: m.content === "This message was deleted." ? "italic" : "normal",
                   display: "flex",
@@ -64,26 +65,28 @@ const ScrollableChat = ({ messages }) => {
                   gap: "5px",
                   marginLeft: isSameSenderMargin(messages, m, i, user._id),
                   marginRight: isSameSenderMargin(messages, m, i, user._id),
+                  position: "relative",
+                  minWidth: "110px",
                 }}
               >
                 {m.content === "This message was deleted." && (
                   <Icon as={FaBan} color="#a0a0a0" boxSize={4} />
                 )}
-                {m.content}
-              </span>
-              {/* Timestamp styling */}
-              <span
-                style={{
-                  fontSize: "10px",
-                  color: "gray",
-                  marginTop: "3px", // Creates a small gap between message and timestamp
-                  alignSelf: m.sender._id === user._id ? "flex-end" : "flex-start",
-                }}
-              >
-                {new Date(m.createdAt).toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
+                <span>{m.content}</span>
+                <span
+                  style={{
+                    fontSize: "10px",
+                    color: "gray",
+                    position: "absolute",
+                    bottom: "5px",
+                    right: "8px",
+                  }}
+                >
+                  {new Date(m.createdAt).toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </span>
               </span>
             </div>
           </div>
